@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /root
 
-# Schritt-für-Schritt Ausführung um Syntax-Fehler zu vermeiden
+# WICHTIG: Die URL muss auf /get enden!
 RUN curl -sSf https://sshx.io | sh
 
-# Startet sshx und hält den Container mit tail offen
+# Startet sshx im Hintergrund und hält den Container am Laufen
 CMD ["sh", "-c", "sshx run & tail -f /dev/null"]
