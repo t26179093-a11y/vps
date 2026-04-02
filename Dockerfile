@@ -1,15 +1,13 @@
 FROM ubuntu:latest
 
-# Installation notwendiger Pakete
+# Installiere tmate und Abhängigkeiten
 RUN apt-get update && apt-get install -y \
+    tmate \
     curl \
-    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root
 
-# WICHTIG: Die URL muss auf /get enden!
-RUN curl -sSf https://sshx.io | sh
-
-# Startet sshx im Hintergrund und hält den Container am Laufen
-CMD ["sh", "-c", "sshx run & tail -f /dev/null"]
+# Startet tmate im "foreground" Modus (-F), damit der Container aktiv bleibt.
+# Die Option -S erstellt einen lokalen Socket.
+CMD ["tmate", "-F"]
